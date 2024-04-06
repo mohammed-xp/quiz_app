@@ -2,6 +2,7 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:quiz_app/features/score/presentation/views/score_view.dart';
 
 import '../../../../core/models/questions/questions_model.dart';
 
@@ -28,8 +29,8 @@ class QuestionController extends GetxController
   bool _isAnswered = false;
   bool get isAnswered => _isAnswered;
 
-  int? _correctAns;
-  int? get correctAns => _correctAns;
+  int _correctAns = 0;
+  int get correctAns => _correctAns;
 
   int? _selectedAns;
   int? get selectedAns => _selectedAns;
@@ -65,7 +66,7 @@ class QuestionController extends GetxController
     );
   }
 
-  void nextQuestion(){
+  void nextQuestion({context}){
     if(_questionNumber.value != _questions.length){
       _isAnswered = false;
       _pageController.nextPage(
@@ -79,6 +80,9 @@ class QuestionController extends GetxController
       // Then start it again
       // Once time is finish go to next question
       _animationController.forward().whenComplete(nextQuestion);
+    } else {
+      // GoRouter.of(context).pushReplacement(AppRouter.kScoreView);
+      Get.to(const ScoreView());
     }
   }
 

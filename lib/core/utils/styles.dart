@@ -4,6 +4,12 @@ import 'package:quiz_app/constants.dart';
 
 abstract class Styles{
 
+  // headline3
+  static const textStyle44 = TextStyle(
+    fontSize: 44,
+    fontWeight: FontWeight.w400,
+  );
+
   // headline4
   static const textStyle34 = TextStyle(
     fontSize: 34,
