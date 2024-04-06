@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:quiz_app/core/utils/widgets/custom_text_button.dart';
+import 'package:get/get.dart';
+import 'package:quiz_app/features/quiz/presentation/manager/question_controller.dart';
 import 'package:quiz_app/features/quiz/presentation/views/widgets/quiz_view_body.dart';
-import 'package:quiz_app/features/welcome/presentation/views/widgets/custom_app_bar.dart';
+import 'package:quiz_app/features/quiz/presentation/views/widgets/custom_app_bar.dart';
 
 class QuizView extends StatelessWidget {
   const QuizView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    QuestionController _questionController = Get.put(QuestionController());
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: CustomAppBar(
         context,
         text: 'Skip',
-        onPressed: () {},
+        onPressed: _questionController.nextQuestion,
       ),
       body: Container(
         decoration: const BoxDecoration(
