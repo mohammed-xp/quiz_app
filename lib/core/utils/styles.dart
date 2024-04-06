@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:quiz_app/constants.dart';
 
 abstract class Styles{
 
@@ -9,9 +10,21 @@ abstract class Styles{
     fontWeight: FontWeight.bold,
   );
 
+  // headline5
   static const textStyle24 = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.w400,
+  );
+
+  // headline6
+  static const textStyle20 = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w500,
+  );
+
+  static const textStyle16 = TextStyle(
+    fontSize: 16,
+    color: kGrayColor,
   );
 
   static const textStyle14 = TextStyle(

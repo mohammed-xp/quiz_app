@@ -1,21 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:quiz_app/constants.dart';
 import 'package:quiz_app/core/utils/styles.dart';
-import 'package:quiz_app/features/quiz/presentation/views/widgets/progress_bar.dart';
+import 'package:quiz_app/features/quiz/presentation/manager/question_controller.dart';
+import 'package:quiz_app/features/quiz/presentation/views/widgets/question_card.dart';
 
 class QuizViewBody extends StatelessWidget {
   const QuizViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const ProgressBar(),
-          const SizedBox(height: kDefaultPadding,),
-          Text.rich(
+    QuestionController _questionController = Get.put(QuestionController());
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // const Padding(
+        //   padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+        //   child: ProgressBar(),
+        // ),
+        const SizedBox(
+          height: kDefaultPadding,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+          child: Text.rich(
             TextSpan(
               text: 'Question 1',
               style: Styles.textStyle34.copyWith(
@@ -32,12 +40,22 @@ class QuizViewBody extends StatelessWidget {
               ],
             ),
           ),
-          const Divider(
-            thickness: 1.5,
+        ),
+        const Divider(
+          thickness: 1.5,
+        ),
+        const SizedBox(
+          height: kDefaultPadding,
+        ),
+        Expanded(
+          child: PageView.builder(
+            itemCount: _questionController.questions.length,
+            itemBuilder: (context, index) => QuestionCard(
+              questionModel: _questionController.questions[index],
+            ),
           ),
-          const SizedBox(height: kDefaultPadding,),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
