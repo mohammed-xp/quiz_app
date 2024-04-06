@@ -6,8 +6,18 @@ class WelcomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: WelcomeViewBody()
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/icons/bg.png'),
+            fit: BoxFit.fill,
+          ),
+        ),
+        child: const SafeArea(
+          child: WelcomeViewBody(),
+        ),
+      ),
     );
   }
 }
