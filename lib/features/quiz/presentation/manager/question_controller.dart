@@ -1,4 +1,5 @@
 import 'package:flutter/animation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
@@ -10,6 +11,9 @@ class QuestionController extends GetxController
   late Animation _animation;
 
   Animation get animation => _animation;
+
+  late PageController _pageController;
+  PageController get pageController => _pageController;
 
   final List<QuestionModel> _questions = sample_data
       .map((q) => QuestionModel(
@@ -44,7 +48,7 @@ class QuestionController extends GetxController
     _correctAns = questionModel.answer;
     _selectedAns = selectedIndex;
 
-    if(_correctAns == _selectedAns) {
+    if (_correctAns == _selectedAns) {
       _numberOfCorrectAns++;
     }
 
@@ -52,6 +56,34 @@ class QuestionController extends GetxController
     _animationController.stop();
 
     update();
+
+    Future.delayed(
+      const Duration(seconds: 3),
+      () {
+        nextQuestion();
+      },
+    );
+  }
+
+  void nextQuestion(){
+    if(_questionNumber.value != _questions.length){
+      _isAnswered = false;
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.ease,
+      );
+
+      // Reset the counter
+      _animationController.reset();
+
+      // Then start it again
+      // Once time is finish go to next question
+      _animationController.forward().whenComplete(nextQuestion);
+    }
+  }
+
+  void updateTheQnNum(int index){
+    _questionNumber.value = index + 1;
   }
 
   @override
@@ -67,8 +99,18 @@ class QuestionController extends GetxController
       });
 
     // start our animation
-    _animationController.forward();
+    _animationController.forward().whenComplete(nextQuestion);
+
+    _pageController = PageController();
 
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+
+    _animationController.dispose();
+    _pageController.dispose();
   }
 }

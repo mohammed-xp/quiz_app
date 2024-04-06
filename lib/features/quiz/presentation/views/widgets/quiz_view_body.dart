@@ -23,23 +23,23 @@ class QuizViewBody extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-          child: Text.rich(
+          child: Obx(() =>Text.rich(
             TextSpan(
-              text: 'Question 1',
+              text: 'Question ${_questionController.questionNumber}',
               style: Styles.textStyle34.copyWith(
                 fontWeight: FontWeight.w400,
                 color: kSecondaryColor,
               ),
               children: [
                 TextSpan(
-                  text: '/10',
+                  text: '/${_questionController.questions.length}',
                   style: Styles.textStyle24.copyWith(
                     color: kSecondaryColor,
                   ),
                 ),
               ],
             ),
-          ),
+          )),
         ),
         const Divider(
           thickness: 1.5,
@@ -49,6 +49,9 @@ class QuizViewBody extends StatelessWidget {
         ),
         Expanded(
           child: PageView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            controller: _questionController.pageController,
+            onPageChanged: _questionController.updateTheQnNum,
             itemCount: _questionController.questions.length,
             itemBuilder: (context, index) => QuestionCard(
               questionModel: _questionController.questions[index],
