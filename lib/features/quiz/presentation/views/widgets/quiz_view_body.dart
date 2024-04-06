@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:quiz_app/constants.dart';
 import 'package:quiz_app/core/utils/styles.dart';
 import 'package:quiz_app/features/quiz/presentation/manager/question_controller.dart';
+import 'package:quiz_app/features/quiz/presentation/views/widgets/progress_bar.dart';
 import 'package:quiz_app/features/quiz/presentation/views/widgets/question_card.dart';
 
 class QuizViewBody extends StatelessWidget {
@@ -14,10 +15,10 @@ class QuizViewBody extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // const Padding(
-        //   padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-        //   child: ProgressBar(),
-        // ),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+          child: ProgressBar(),
+        ),
         const SizedBox(
           height: kDefaultPadding,
         ),

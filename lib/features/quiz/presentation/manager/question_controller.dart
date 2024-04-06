@@ -38,7 +38,7 @@ class QuestionController extends GetxController
   final RxInt _questionNumber = 1.obs;
   RxInt get questionNumber => _questionNumber;
 
-  int _numberOfCorrectAns = 0;
+  late int _numberOfCorrectAns ;
   int get numberOfCorrectAns => _numberOfCorrectAns;
 
   void checkAns({
@@ -66,8 +66,8 @@ class QuestionController extends GetxController
     );
   }
 
-  void nextQuestion({context}){
-    if(_questionNumber.value != _questions.length){
+  void nextQuestion({context}) {
+    if (_questionNumber.value != _questions.length) {
       _isAnswered = false;
       _pageController.nextPage(
         duration: const Duration(milliseconds: 250),
@@ -82,16 +82,17 @@ class QuestionController extends GetxController
       _animationController.forward().whenComplete(nextQuestion);
     } else {
       // GoRouter.of(context).pushReplacement(AppRouter.kScoreView);
-      Get.to(const ScoreView());
+      Get.offAll(const ScoreView());
     }
   }
 
-  void updateTheQnNum(int index){
+  void updateTheQnNum(int index) {
     _questionNumber.value = index + 1;
   }
 
   @override
   void onInit() {
+    _numberOfCorrectAns = 0;
     _animationController = AnimationController(
       duration: const Duration(seconds: 60),
       vsync: this,

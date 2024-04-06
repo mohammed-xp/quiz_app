@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
-import 'package:quiz_app/core/utils/app_router.dart';
 import 'package:quiz_app/features/quiz/presentation/views/quiz_view.dart';
 import 'package:quiz_app/features/welcome/presentation/views/widgets/custom_button.dart';
 import 'package:quiz_app/features/welcome/presentation/views/widgets/custom_text_field.dart';
@@ -39,7 +37,7 @@ class WelcomeViewBody extends StatelessWidget {
             text: 'Let\'s Start Quiz',
             onPressed: () {
               // GoRouter.of(context).push(AppRouter.kQuizView);
-              Get.to(const QuizView());
+              Get.offAll(const QuizView());
             },
           ),
           const Spacer(
