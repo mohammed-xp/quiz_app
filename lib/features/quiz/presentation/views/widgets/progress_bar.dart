@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:quiz_app/features/quiz/presentation/manager/question_controller.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 import '../../../../../constants.dart';
@@ -18,32 +20,37 @@ class ProgressBar extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(50),
       ),
-      child: Stack(
-        children: [
-          LayoutBuilder(
-            builder: (context, constraints) => Container(
-              width: constraints.maxWidth * 0.44,
-              decoration: BoxDecoration(
-                gradient: kPrimaryGradient,
-                borderRadius: BorderRadius.circular(50),
-              ),
-            ),
-          ),
-          Positioned.fill(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    '18 sec',
+      child: GetBuilder<QuestionController>(
+        init: QuestionController(),
+        builder: (controller){
+          return Stack(
+            children: [
+              LayoutBuilder(
+                builder: (context, constraints) => Container(
+                  width: constraints.maxWidth * controller.animation.value,
+                  decoration: BoxDecoration(
+                    gradient: kPrimaryGradient,
+                    borderRadius: BorderRadius.circular(50),
                   ),
-                  WebsafeSvg.asset('assets/icons/clock.svg')
-                ],
+                ),
               ),
-            ),
-          ),
-        ],
+              Positioned.fill(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '${(controller.animation.value * 60).round()} sec',
+                      ),
+                      WebsafeSvg.asset('assets/icons/clock.svg')
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
